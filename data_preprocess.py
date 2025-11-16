@@ -13,20 +13,24 @@ llm = Llama(
     # n_ctx=2048,  #uncomment to increase context window
     verbose=False,
     embedding=True,
+    n_batch=16,
 )
 
 # print("hello world")
-documents = documents[:20]
+# documents = documents[:20]
 embeddings = []
 
 texts = [doc["text"] for doc in documents]
-for doc in documents:
+n = len(documents)
+for i, doc in enumerate(documents):
     #     print(doc)
     #     # output = llm(question, max_tokens=32, stop=["Q:"])
     embedding = llm.embed(doc["text"])
     # embeddings.append(embedding)
     # print(embedding)
     doc["embedding"] = embedding
+    if i % 10 == 0:
+        print(f"progress: {i}/{n}")
 print("done")
 # print(json.dumps(documents))
 with open("processed.json", "w") as f:
