@@ -7,26 +7,39 @@ wget -c https://cornell.box.com/shared/static/ffwnimisulvjyzp1t9u3201uj3p0w3bk.j
 wget -c https://cornell.box.com/shared/static/eg115icq6oz2shnq63vzjw3776v30mwy.json -O queries.json
 ```
 
-Also need to create `model/` and put this here.
+Also need to create `model/` and include the following models.
 ```sh
 wget -c "https://huggingface.co/CompendiumLabs/bge-base-en-v1.5-gguf/resolve/main/bge-base-en-v1.5-f32.gguf?download=true" -O bge-base-en-v1.5-f32.gguf
+wget "https://huggingface.co/Qwen/Qwen2-7B-Instruct-GGUF/resolve/main/qwen2-7b-instruct-q4_0.gguf"      -O qwen2-7b-instruct-q4_0.gguf
 ```
 
+We also depend on python packages `faiss-cpu` and `llama-cpu-python`.
+
+
+## Preprocess code by
+
+```sh
+python3 data_preprocess.py 2>/dev/null
+```
+
+## File tree
 Your file tree should include the following:
-.
 ├── README.md
 ├── data
 │   ├── documents.json
 │   └── queries.json
 ├── data_preprocess.py
-├── justfile
+├── encode.py
+├── llm_inference.py
+├── main.py
 ├── models
-│   └── bge-base-en-v1.5-f32.gguf
+│   ├── bge-base-en-v1.5-f32.gguf
+│   ├── qwen2-7b-instruct-q4_0.gguf
+├── processed.json
 └── vector_db.py
 
-## Running
-We depend on python packages `faiss-cpu` and `llama-cpu-python`.
 
-If you have the cli tool `just` installed, you can just run `just step1` and `just step2` to run either steps.
-
-Otherwise, just look at the `justfile` to see what commands you need to run.
+## Running ChatGPT wannabe
+```sh
+python3 main.py
+```
