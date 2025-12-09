@@ -3,3 +3,6 @@ build/
 .venv/
 models/
 *.json
+__pycache__/
+processed.json
+.DS_STORE
