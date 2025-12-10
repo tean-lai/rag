@@ -9,7 +9,7 @@ class Encoder:
         self.llm = llama.Llama(
             model_path="./models/bge-base-en-v1.5-f32.gguf",
             verbose=False,
-            n_batch=16,
+            n_batch=1,
             embedding=True,
         )
 

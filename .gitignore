@@ -6,3 +6,6 @@ models/
 __pycache__/
 processed.json
 .DS_STORE
+artifact/
+artifact2/
+*.pdf

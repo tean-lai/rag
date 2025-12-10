@@ -10,6 +10,7 @@ wget -c https://cornell.box.com/shared/static/eg115icq6oz2shnq63vzjw3776v30mwy.j
 Also need to create `model/` and include the following models.
 ```sh
 wget -c "https://huggingface.co/CompendiumLabs/bge-base-en-v1.5-gguf/resolve/main/bge-base-en-v1.5-f32.gguf?download=true" -O bge-base-en-v1.5-f32.gguf
+wget https://huggingface.co/TheBloke/TinyLlama-1.1B-Chat-v0.3-GGUF/resolve/main/tinyllama-1.1b-chat-v0.3.Q4_K_M.gguf
 wget "https://huggingface.co/Qwen/Qwen2-7B-Instruct-GGUF/resolve/main/qwen2-7b-instruct-q4_0.gguf"      -O qwen2-7b-instruct-q4_0.gguf
 ```
 
@@ -30,11 +31,13 @@ Your file tree should include the following:
 │   └── queries.json
 ├── data_preprocess.py
 ├── encode.py
+├── evaluation.py
 ├── llm_inference.py
 ├── main.py
 ├── models
 │   ├── bge-base-en-v1.5-f32.gguf
 │   ├── qwen2-7b-instruct-q4_0.gguf
+│   └── tinyllama-1.1b-chat-v0.3.Q4_K_M.gguf
 ├── processed.json
 └── vector_db.py
 
@@ -42,4 +45,8 @@ Your file tree should include the following:
 ## Running ChatGPT wannabe
 ```sh
 python3 main.py
+```
+## Running experiments
+```sh
+python3 evaluation.py
 ```

@@ -4,21 +4,32 @@ import faiss
 import numpy as np
 
 
-def build_index(embeddings, dim=768):
+def build_index(embeddings, ivf=True, dim=768):
     index = faiss.IndexFlatL2(dim)
-    index.add(embeddings)
-    return index
+    if not ivf:
+        
+        # index = faiss.IndexIVFFlat(d=dim, quantizer=)
+        index.add(embeddings)
+        return index
+    else:
+        quantizer = index
+        nlist = max(1, int(np.sqrt(len(embeddings))))
+        index = faiss.IndexIVFFlat(quantizer, dim, nlist)
+        assert not index.is_trained
+        index.train(embeddings)
+        assert index.is_trained
+        return index
 
 
-def test_query(index, query_emb, top_k=5):
-    query_emb.reshape(1, 768)
-    D, I = index.search(query_emb, top_k)
-    print("Distances:", D)
-    print("Indices:", I)
+# def test_query(index, query_emb, top_k=5):
+#     query_emb.reshape(1, 768)
+#     D, I = index.search(query_emb, top_k)
+#     print("Distances:", D)
+#     print("Indices:", I)
 
 
 class VectorDB:
-    def __init__(self):
+    def __init__(self, ivf):
         with open("processed.json") as f:
             data = json.load(f)
         self.documents = {}
@@ -26,7 +37,7 @@ class VectorDB:
         embeddings = np.array([entry["embedding"] for entry in data])
         self.data = [entry["text"] for entry in data]
 
-        self.index = build_index(embeddings, dim=embeddings.shape[1])
+        self.index = build_index(embeddings, ivf, dim=embeddings.shape[1])
 
     def search(self, query_emb, top_k):
         """
