@@ -10,6 +10,7 @@ class Inference:
             verbose=False,
             n_batch=1,
             n_ctx=n_ctx,
+            n_gpu_layers=-1,
         )
 
     def query(self, q):

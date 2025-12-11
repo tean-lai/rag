@@ -55,7 +55,7 @@ if __name__ == "__main__":
         
             for top_k in TEST_PARAMS["top_k"]:
 
-                file_name = "artifact/" + "-".join([inference_model, str(ivf), str(top_k)])
+                file_name = "artifact3/" + "-".join([inference_model, str(ivf), str(top_k)])
                 pr = cProfile.Profile()
                 if Path.exists(file_name): continue
                 try:

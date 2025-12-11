@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-SRC_DIR="artifact"
-DST_DIR="artifact2"
+SRC_DIR="artifact3"
+DST_DIR="artifact4"
 PATTERN='query|encode|search'
 
 mkdir -p "$DST_DIR"

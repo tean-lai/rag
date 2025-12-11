@@ -51,3 +51,24 @@ It's possible the number of documents is not high enough for searching to be a b
 
 The best place to optimize is likely by batching up prompts for inference.
 
+== Optimizing inference
+
+As said before, the best place to optimize here is with inference. One way to do that is buy utilizing more GPU layers.
+
+I did a change where instead I intialize the LLM with `n_gpu_layers = -1`, and inference speed improved. @tab2 shows some of these results.
+
+#figure(
+    table(
+    columns: 3,
+    inset: 9pt,
+    align: horizon,
+    table.header(
+        [model], [top_k], [inference_time]
+    ),
+    [qwen], [7], [7.481],
+    [qwen], [15], [11.718],
+    [qwen], [31], [15.690],
+    [tinyllm], [63], [25.031],
+    ),
+    caption:"Some results with inference optimization"
+) <tab2>
